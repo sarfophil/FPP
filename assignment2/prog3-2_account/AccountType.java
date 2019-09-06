@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.lessons;
+package problem32;
 
 /**
- * @author 610488
+ * @author SARFO PHILIP
  *
  */
 public enum AccountType {
