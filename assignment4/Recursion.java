@@ -79,7 +79,7 @@ public class Recursion {
 	 */
 	static char minimum(String a, int count, char min) {
 		if (a.isEmpty())
-			return a.charAt(0);
+			return '';
 		char[] b = a.toCharArray();
 		if (b.length == count) {
 			return min;
