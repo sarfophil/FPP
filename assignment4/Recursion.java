@@ -20,9 +20,9 @@ public class Recursion {
 		//Question 2
 		System.out.println("Question 2: \n"+ minimum("akel",0,'a')+"\n");
 		
-		//Question 3
-		int arr[] = {90,9,3,59,4,90,3,4,50,89};
-		System.out.println("Question 3: \n"+ binarySearch(arr,59,0)+"\n");
+		// Question 3
+		int arr[] = { 90, 9, 3, 59, 4, 90, 3, 4, 50 };
+		System.out.println("Question 3: \nReturned Index:" + binarySearch(arr, 9) + "\n");
 
 		//Question 4
 		System.out.println("Question 4: \n" + isPalindrome("bob",0)+"\n");
@@ -79,7 +79,7 @@ public class Recursion {
 	 */
 	static char minimum(String a, int count, char min) {
 		if (a.isEmpty())
-			return 'a';
+			return a.charAt(0);
 		char[] b = a.toCharArray();
 		if (b.length == count) {
 			return min;
@@ -100,16 +100,21 @@ public class Recursion {
 	 * @param int   num
 	 * @param int   index
 	 */
-	static boolean binarySearch(int[] arr, int num, int index) {
-		if (arr.length == 0)
-			return false;
-		if (arr.length == index) {
-			return false;
-		} else if (arr[index] == num) {
-			return true;
+	static int binarySearch(int[] arr, int num) {
+		Arrays.sort(arr);
+		int middleIndex = arr.length / 2;
+		if (arr.length == 0) {
+			return 0;
+		} else if (num == arr[arr.length / 2]) {
+			return arr.length / 2;
+		} else if (arr[middleIndex] < num) {
+			arr = Arrays.copyOfRange(arr, 0, arr.length - 1);
+			return binarySearch(arr, num);
 		} else {
-			return binarySearch(arr, num, index + 1);
+			arr = Arrays.copyOfRange(arr, (arr.length / 2) + 1, arr.length - 1);
+			return binarySearch(arr, num);
 		}
+
 	}
 
 	/**

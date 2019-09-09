@@ -21,9 +21,9 @@ public class JunitCase {
 	
 	@Test
 	public void testQuestion3() {
-		int arr[] = {90,9,3,59,4,90,3,4,50,89};
-		boolean binarySearch = Recursion.binarySearch(arr, 4, 0);
-		assertEquals(true,binarySearch);
+		int arr[] = { 90, 9, 3, 59, 4, 90, 3, 4, 50 };
+		int binarySearch = Recursion.binarySearch(arr, 9);
+		assertEquals(4,binarySearch);
 	}
 	
 
