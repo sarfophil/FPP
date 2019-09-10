@@ -27,10 +27,11 @@ public class Main {
 	
 	static void printTotal(Shape[] shapes) {
 		int count = 1;
+		double total = 0.0;
 		for(Shape shape : shapes) {
 			int index = count++;
-			System.out.println(index +": Area: "+shape.calculateArea()+"\t Rectangle: "+shape.calculatePerimeter());
-			
+			total += shape.calculateArea();
+			System.out.println(index+": Total Area: "+total);
 		}
 	}
 

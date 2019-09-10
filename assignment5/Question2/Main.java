@@ -25,6 +25,22 @@ public class Main {
 		department[4] = new Secretary("Neymar Dos Santos",LocalDate.now(),9000.0,9.0);
 		
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("Do you wish to see sum of all Professor and Secretary.(y/n)");
+		String response = scanner.nextLine();
+		if(response.equals("y")) {
+			System.out.println("Total of all salaries: "+findTotal(department));
+		}else {
+			System.out.println("Terminated.");
+		}
+		scanner.close();
+	}
+	
+	static Double findTotal(DeptEmployee[] department) {
+		Double total = 0.0;
+		for(DeptEmployee deptEmployee : department) {
+			total += deptEmployee.computeSalary();
+		}
+		return total;
 	}
 	
 	
