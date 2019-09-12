@@ -1,7 +1,7 @@
 /**
  * 
  */
-package homework3;
+package solution;
 
 /**
  * @author 610488
@@ -9,9 +9,10 @@ package homework3;
  */
 public class DownwardHat implements Figure{
 	
+	
 	@Override
 	public void getFigure() {
-		System.out.println(this.getClass().getSimpleName()+":\\/");
+		System.out.print("\\/ ");
 	}
 
 }

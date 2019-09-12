@@ -1,7 +1,7 @@
 /**
  * 
  */
-package homework3;
+package solution;
 
 /**
  * @author 610488
