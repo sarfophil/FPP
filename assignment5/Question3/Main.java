@@ -7,7 +7,7 @@ package homework3;
  * @author 610488
  *
  */
-public class Main {
+public class Driver {
 
 	/**
 	 * @param args
