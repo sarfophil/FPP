@@ -1,7 +1,4 @@
-/**
- * 
- */
-package Assignment1;
+package assignment6;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,11 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-/**
- * @author 610488
- *
- */
-public class StringUtility extends JFrame {
+public class Question1 extends JFrame {
 
 	/**
 	 * @param args
@@ -29,7 +22,7 @@ public class StringUtility extends JFrame {
 	private static JLabel outputLabel = new JLabel("Output");
 
 	public static void main(String[] args) {
-		initialize();
+		 initialize();
 	}
 
 	static void initialize() {
@@ -71,17 +64,17 @@ public class StringUtility extends JFrame {
 		reverseLettersBtn.addActionListener(e -> {
 			JButton source = (JButton) e.getSource();
 			if (!inputTextField.getText().toString().isEmpty()) {
-				outputTextField.setText(reverse(inputTextField.getText().toString(),0));
+				outputTextField.setText(reverse(inputTextField.getText().toString(), 0));
 			} else {
 				JOptionPane.showMessageDialog(source, "You must enter a value");
 			}
 		});
-		
-		//remove duplicate button on click
-		removeDuplicateBtn.addActionListener(e->{
+
+		// remove duplicate button on click
+		removeDuplicateBtn.addActionListener(e -> {
 			JButton source = (JButton) e.getSource();
 			if (!inputTextField.getText().toString().isEmpty()) {
-				outputTextField.setText(reverse(inputTextField.getText().toString(),0));
+				outputTextField.setText(removeDuplicate(inputTextField.getText().toString()));
 			} else {
 				JOptionPane.showMessageDialog(source, "You must enter a value");
 			}
@@ -103,20 +96,57 @@ public class StringUtility extends JFrame {
 		outputLabel.setBounds(180, 75, 180, 25);
 		frame.add(outputLabel);
 	}
-	
-	static String reverse(String value,int count) {
-		if(value.length() == count) {
+
+	static String reverse(String value, int count) {
+		if (value.length() == count) {
 			return value;
 		}
 		count++;
-		return value.charAt(value.length()-1) + reverse(value.substring(0,value.length()-1),count);
+		return value.charAt(value.length() - 1) + reverse(value.substring(0, value.length() - 1), count);
 	}
-	
-//	static String removeDuplicate(String value) {
-//		char[] values = value.toCharArray();
-//		for(char val : values) {
-//			
-//		}
-//	}
+
+	/**
+	 * Method removes duplicates from string
+	 * @param value
+	 **/
+	static String removeDuplicate(String value) {
+		char[] values = value.toCharArray();
+		char[] tempArr = new char[values.length];
+		tempArr[0] = values[0];
+		for (int i = 0; i < values.length; i++) {
+			for (int j = i + 1; j < values.length; j++) {
+				if (values[i] != values[j]) {
+					if (!inspectTempArr(tempArr, values[j])) {
+						tempArr[j] = values[j];
+					}
+				} else {
+					if (!inspectTempArr(tempArr, values[j])) {
+						tempArr[j] = values[j];
+					}
+				}
+			}
+		}
+		String filteredString = "";
+		for (Character k : tempArr) {
+			if (k > 0) {
+				filteredString += k;
+			}
+		}
+
+		return filteredString;
+	}
+
+	/**
+	 *  Method Checks array if {@keyValue} exists in array
+	 *  @param char[] temp
+	 *  @param char keyValue
+	 *   */
+	static Boolean inspectTempArr(char[] temp, char keyValue) {
+		for (char c : temp) {
+			if (c == keyValue)
+				return true;
+		}
+		return false;
+	}
 
 }
