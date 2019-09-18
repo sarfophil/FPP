@@ -1,116 +1,143 @@
-/**
- * 
- */
-package lesson8;
+package assignment8;
 
-/**
- * @author 610488
- *
- */
 public class MyStringLinkedList {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	Node header;
+	int size;
 
-	public MyStringLinkedList() {
+	MyStringLinkedList() {
 		header = null;
+		size = 0;
 	}
 
-	/**
-	 * Add a new Node infront of a Linked List
-	 */
-	public void addFront(String item) {
-		if (header == null)
-			header = new Node(null, item, null);
-		else {
-			Node n = new Node(null, item, header);
-			header.prev = n;
-			header = n;
-		}
-	}
-
-	/**
-	 * Add a new Node as the last node
-	 * 
-	 * @param item
-	 */
-	public void addLast(String item) {
-		if (header == null)
-			header = new Node(null, item, null);
+	public void addSort(String item) {
+		// Implement
+		if(header == null)
+			header = new Node(null,item,null);
 		else {
 			Node temp = header;
-			while (temp.next != null)
+			while(temp.next != null)
 				temp = temp.next;
-			Node n = new Node(temp, item, null);
-			temp.next = n;
+			Node newNode = new Node(temp,item,null);
+			temp.next = newNode;
+			header = temp;
+			sort();
 		}
-	}
 
+	} // insert in a Sorted Order
+	
+	
 	/**
-	 * 
-	 * @param n
-	 * @param value
+	 * Method sorts Nodes in Alphabetical order
 	 */
-	public void postAddNode(Node n, String value) {
-		Node newNode;
-		if (n == null) {
-			newNode = new Node(null, value, null);
-		} else if (n.next == null) {
-			addLast(value);
-		} else {
-			newNode = new Node(n.next, value, n);
-			n.next.prev = newNode;
-			n.next = newNode;
+	private void sort() {
+		Node current = null,index = null;
+		String temp = "";
+		//Current will point to head
+		for(current = header; current.next != null; current = current.next) {
+			// Index  will point to node next to current
+			for(index = current.next; index != null; index = index.next) {
+				if(current.value.compareTo(index.value) < 0) {
+					temp = current.value;
+					current.value = index.value;
+					index.value = temp;
+				}
+			}
 		}
 	}
-
-	public Node findLast() {
-		if (header == null)
-			return null;
-		else {
-			Node temp = header;
-			while (temp.next != null)
-				temp = temp.next;
-			return temp;
-		}
+	
+	public int size() {
+		return size;
 	}
 
-	public Node findItem(String value) {
-		if (header == null)
-			return null;
-		else {
-			Node temp = header;
-			while (temp.next != null)
-				if (temp.value.equals(value))
-					return temp;
-				else
-					temp = temp.next;
-			return null;
+	public boolean isEmpty() {
+		return (header == null);
+	}
+
+	public Node getFirst() {
+		if(header == null) return null;
+		Node temp = header;
+		while(header.previous != null) {
+			temp = temp.previous;
 		}
+		return temp;
+	}
+
+	public Node getLast() {
+		if(header == null) return null;
+		Node temp = header;
+		while(header.next != null)
+			temp = temp.next;
+		return temp;
+	}
+
+	public boolean contains(String item) {
+		if(header == null) return false;
+		Node temp = header;
+		while(temp != null)
+			if(temp.value.equals(item)) {
+				return true;
+			}
+		return false;
+	}
+
+	public void removeFirst() {
+		if(header == null) return;
+		Node newNode = new Node(null,header.next.value,header.next.next);
+		header = newNode;
+		--size;
+	}
+
+	void removeLast() {
+		if(header == null) return;
+		Node temp = header;
+		while(temp.next != null) {
+			temp = temp.next;
+		}
+		temp.previous.next = null;
+		temp = null;
+		--size;
+	}
+
+	public void print() {
+		print(header);
+	}
+
+	// Write a recursive print method to display the elements in the list.
+	void print(Node n) {
+		n.toString();
+	}
+
+	public String toString() {
+		String str = "";
+		Node temp = header;
+		while (temp != null) {
+			str = str + "-->[" + temp.value.toString() + "]";
+			temp = temp.next;
+		}
+		str = str + "-->[" + "NULL" + "]";
+		return str;
 	}
 
 	public class Node {
-		private Node prev;
-		private String value;
-		private Node next;
+		String value;
+		Node next;
+		Node previous;
 
-		public Node(Node prev, String value, Node next) {
-			this.prev = prev;
+		Node(Node previous, String value, Node next) {
+			this.previous = previous;
 			this.value = value;
 			this.next = next;
 		}
 
-		@Override
 		public String toString() {
 			return value;
 		}
+	}
+
+	public static void main(String[] args) {
+		MyStringLinkedList mySL = new MyStringLinkedList();
+		// Make use of the implemented methods
+
 	}
 
 }
