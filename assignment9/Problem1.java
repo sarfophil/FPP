@@ -15,15 +15,15 @@ public class Problem1 {
 	public void enqueue(int obj) {
 		if(arr.length == rear) resize();
 		arr[rear++] = obj;
-		rear++;
 	}
 
 	public int dequeue() {
 		if(rear == 0) return 0;
-		int tempFront = arr[0];
+		int tempFront = arr[front];
 		int[] newArr = new int[arr.length - 1];
 		System.arraycopy(arr, 1, newArr, 0, newArr.length);
 		arr = newArr;
+		front = newArr[0];
 		rear--;
 		return tempFront;
 	}
