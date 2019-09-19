@@ -86,7 +86,7 @@ public class Marketing {
 		List<Marketing> marketingList = new ArrayList<>();
 		marketingList.add(new Marketing("Philip Sarfo","Hp Laptop",9.0));
 		marketingList.add(new Marketing("Bill Gates","Lenovo",90.9));
-		marketingList.add(new Marketing("Zullu Kafka","Dell",90.0));
+		marketingList.add(new Marketing("Zullu Kafka","Dell",23390.0));
 		
 		marketingList.remove(new Marketing("Zullu Kafka","Dell",90.0));
 		
@@ -98,18 +98,24 @@ public class Marketing {
 		});
 		
 		
+		System.out.println(listMoreThan1000(marketingList));
+		
 
 	}
 	
-//	public static List<Marketing> listMoreThan1000(List<Marketing> list){
-//		return Collections.sort(list,new Comparator<T>() {
-//
-//			@Override
-//			public int compare(T o1, T o2) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//		});
-//	}
+	public static List<Marketing> listMoreThan1000(List<Marketing> list){
+		List<Marketing> newList = new ArrayList<Marketing>();
+		
+		list.forEach(e->{
+			if(e.getSalesAmount() > 1000)
+				newList.add(e);
+		});
+		
+		Collections.sort(list, (employee1,employee2)->{
+			return employee1.getEmployeeName().compareTo(employee2.getEmployeeName());
+		});
+		
+		return newList;
+	}
 
 }
