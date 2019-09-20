@@ -53,11 +53,16 @@ class BSTree implements BST {
 
 		} else {
 			BinaryNode leafNodes = leafNode(root, value);
-			if (value < leafNodes.value) {
-				leafNodes.left = new BinaryNode(value);
+			if (leafNodes != null) {
+				if (value < leafNodes.value) {
+					leafNodes.left = new BinaryNode(value);
+				} else {
+					leafNodes.right = new BinaryNode(value);
+				}
 			} else {
-				leafNodes.right = new BinaryNode(value);
+				System.out.println(value + " Already exist");
 			}
+			
 		}
 
 		size++;
@@ -79,8 +84,23 @@ class BSTree implements BST {
 
 	@Override
 	public void preOrder() {
-		// TODO Auto-generated method stub
-
+		preOrder(root,null);
+	}
+	
+	private void preOrder(BinaryNode binaryNode,BinaryNode recentBinaryNode) {
+		if (findMax(root) == binaryNode.value)
+			return;
+		Boolean isLeafNode = (binaryNode.left == null && binaryNode.right == null);
+		
+		if (!isLeafNode) {
+			System.out.println(binaryNode.value);
+			recentBinaryNode = binaryNode.left;
+			preOrder(binaryNode.left,recentBinaryNode);
+		} else {
+			System.out.println(binaryNode.right);
+			preOrder(binaryNode.right,recentBinaryNode);
+		}
+		
 	}
 
 	@Override
@@ -130,12 +150,24 @@ class BSTree implements BST {
 	}
 
 	private BinaryNode leafNode(BinaryNode binaryNode, int value) {
-		if (binaryNode.left == null && binaryNode.right == null)
+		if (binaryNode.left == null && binaryNode.right == null) {
 			return binaryNode;
+		}
 		if (value > binaryNode.value)
-			return leafNode(binaryNode.right, value);
-
-		return leafNode(binaryNode.left, value);
+			if(binaryNode.right != null)
+				return leafNode(binaryNode.right, value);
+			else {
+				return binaryNode;
+			}
+		else if(value < binaryNode.value) {
+			if(binaryNode.left != null)
+				return leafNode(binaryNode.left,value);
+			else
+				return binaryNode;
+		}else {
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -174,16 +206,7 @@ class BSTree implements BST {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BSTree mybst = new BSTree();
-
-		int[] a = { 15, 12, 9, 56, 1, 16, 19, 22, 3, 100, 2, 25 };
-
-		for (int j = 0; j < a.length; j++) {
-			mybst.insert(a[j]);
-
-		}
-		mybst.insert(12);
-		mybst.printTree();
+		
 
 	}
 
