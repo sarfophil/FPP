@@ -21,9 +21,11 @@ public class Main {
 			mybst.insert(a[j]);
 
 		}
-		//mybst.insert(25);
+		mybst.insert(25);
 		mybst.preOrder();
+		mybst.postOrder();
 		mybst.printTree();
+		System.out.println(mybst.leafNodes());
 
 	}
 

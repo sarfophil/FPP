@@ -62,7 +62,7 @@ class BSTree implements BST {
 			} else {
 				System.out.println(value + " Already exist");
 			}
-			
+
 		}
 
 		size++;
@@ -72,7 +72,7 @@ class BSTree implements BST {
 	public void printTree() {
 		printTree(root);
 	}
-	
+
 	// Inorder Traversal to print the nodes in Ascending order
 	private void printTree(BinaryNode t) {
 		if (t != null) {
@@ -84,29 +84,28 @@ class BSTree implements BST {
 
 	@Override
 	public void preOrder() {
-		preOrder(root,null);
+		preOrderHelper(root);
 	}
-	
-	private void preOrder(BinaryNode binaryNode,BinaryNode recentBinaryNode) {
-		if (findMax(root) == binaryNode.value)
+
+	private void preOrderHelper(BinaryNode binaryNode) {
+		if (binaryNode == null)
 			return;
-		Boolean isLeafNode = (binaryNode.left == null && binaryNode.right == null);
-		
-		if (!isLeafNode) {
-			System.out.println(binaryNode.value);
-			recentBinaryNode = binaryNode.left;
-			preOrder(binaryNode.left,recentBinaryNode);
-		} else {
-			System.out.println(binaryNode.right);
-			preOrder(binaryNode.right,recentBinaryNode);
-		}
-		
+		System.out.printf("%s ", binaryNode.value);
+		preOrderHelper(binaryNode.left);
+		preOrderHelper(binaryNode.right);
 	}
 
 	@Override
 	public void postOrder() {
-		// TODO Auto-generated method stub
+		postOrderHelper(root);
+	}
 
+	private void postOrderHelper(BinaryNode binaryNode) {
+		if (binaryNode == null)
+			return;
+		System.out.printf("%s ", binaryNode.value);
+		postOrderHelper(binaryNode.right);
+		postOrderHelper(binaryNode.left);
 	}
 
 	@Override
@@ -144,8 +143,12 @@ class BSTree implements BST {
 	}
 
 	private Integer leafNodes(BinaryNode binaryNode) {
+		if (binaryNode == null)
+			return -1;
 		if (binaryNode.left == null && binaryNode.right == null)
 			return binaryNode.value;
+		if (binaryNode.left == null && binaryNode.right != null)
+			return leafNodes(binaryNode.right);
 		return leafNodes(binaryNode.left);
 	}
 
@@ -154,20 +157,20 @@ class BSTree implements BST {
 			return binaryNode;
 		}
 		if (value > binaryNode.value)
-			if(binaryNode.right != null)
+			if (binaryNode.right != null)
 				return leafNode(binaryNode.right, value);
 			else {
 				return binaryNode;
 			}
-		else if(value < binaryNode.value) {
-			if(binaryNode.left != null)
-				return leafNode(binaryNode.left,value);
+		else if (value < binaryNode.value) {
+			if (binaryNode.left != null)
+				return leafNode(binaryNode.left, value);
 			else
 				return binaryNode;
-		}else {
+		} else {
 			return null;
 		}
-		
+
 	}
 
 	@Override
@@ -186,7 +189,7 @@ class BSTree implements BST {
 	}
 
 	private Integer findMin(BinaryNode binaryNode) {
-		if(binaryNode.left == null)
+		if (binaryNode.left == null)
 			return binaryNode.value;
 		return findMin(binaryNode.left);
 	}
@@ -195,9 +198,9 @@ class BSTree implements BST {
 	public Integer findMax() {
 		return findMax(root);
 	}
-	
+
 	private Integer findMax(BinaryNode binaryNode) {
-		if(binaryNode.right == null)
+		if (binaryNode.right == null)
 			return binaryNode.value;
 		return findMax(binaryNode.right);
 	}
@@ -206,7 +209,6 @@ class BSTree implements BST {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
 
 	}
 
