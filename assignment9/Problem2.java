@@ -7,76 +7,102 @@ package Assignment9;
  * @author 610488
  *
  */
+public class Problem2{
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		ArrayStack stk = new ArrayStack(); // create stack of size 4
+		Object item;
+		stk.push('A'); // push 3 items onto stack
+		stk.push('B');
+		stk.push('C');
+		stk.push('D');
+		
+		System.out.println("size(): "+ stk.size());
+		item = stk.pop(); // delete item
+		System.out.println(item + " is deleted");
+		stk.push('D'); // add three more items to the stack
+		stk.push('E');
+		System.out.println(stk.pop() + " is deleted");
+		stk.push('G'); // push one item
+		item = stk.peek(); // get top item from the stack
+		System.out.println(item + " is on top of stack");
+		System.out.println("Size of the Stack : " + stk.size());
+	}
+}
 
 interface Stack {
-	public void Push(Node node);
+	public void push(Object obj);
 	public Object peek();
 	public Object pop();
 	public Boolean isEmpty();
 	public int size();
 }
 
-class Problem2 implements Stack{
+class ArrayStack implements Stack{
 	
-	private Node[] nodeArr;
-	private int top;
+
+	Node top = null;
 	
-	/**
-	 * @param args
-	 */
-	static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
-	
-	public Problem2(int n) {
-		nodeArr = new Node[n];
-		top = -1;
-	}
 
 	@Override
-	public void Push(Node node) {
-		if (nodeArr.length - 1 == top) {
-			System.out.println("Stack is full");
+	public void push(Object obj) {
+		if(isEmpty()) {
+			Node n = new Node(null,obj,null);
+			top = n;
 		}
-		nodeArr[top++] = node;
-
-	}
-
-	@Override
-	public Object peek() {	
-		return nodeArr[top];
+		else {
+			Node n = new Node(top,obj,null);
+			top.next = n;
+			top = n;
+		}
+		
 	}
 
 	@Override
 	public Object pop() {
-		if(isEmpty()) {
-			System.out.println("Stack is empty");
-		}
-		Node item = nodeArr[top];
-		top--;
-		return item;
+		Node n = top;
+		top = n.previous;
+		return n.value;
+	}
+
+	@Override
+	public Object peek() {
+		if(isEmpty()) return null;
+		return top.value;
 	}
 
 	@Override
 	public Boolean isEmpty() {
-		return (top == -1);
+		if(top == null) return true;
+		return false;
 	}
 
 	@Override
 	public int size() {
-		return top+1;
+		int count = 0;
+		Node n = top;
+		while(n != null) {
+			n = n.previous;
+			count++;
+		}
+		return count;
 	}
+
 
 }
 
 class Node {
-	private Node next;
-	private Node previous;
-	private int value;
+	Node next;
+	Node previous;
+	Object value;
 
-	public Node(Node next, Node previous, int value) {
+	public Node(Node next, Object value, Node previous) {
 		this.next = next;
 		this.previous = previous;
 		this.value = value;
 	}
+
+	
 }
